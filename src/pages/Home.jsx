@@ -36,8 +36,11 @@ const Home = () => {
     if (!title.trim() || !body.trim()) return;
 
     if (editingNoteId) {
-      await updateDoc(doc(db, "notes", editingNoteId), { title, body });
-      setEditingNoteId(null);
+      await updateDoc(doc(db, "notes", editingNoteId), { title, body }).then(() => {
+        setEditingNoteId(null);
+        setTitle("");
+        setBody("");
+      });
     } else {
       await addDoc(collection(db, "notes"), {
         title,
@@ -46,10 +49,9 @@ const Home = () => {
         created: Date.now(),
         important: false,
       });
+      setTitle("");
+      setBody("");
     }
-
-    setTitle("");
-    setBody("");
   };
 
   const handleDelete = async (id) => {
@@ -69,9 +71,13 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
+
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="bg-[#1e1b2e] p-6 rounded-2xl shadow-lg mb-6 border border-indigo-800">
-          <h2 className="text-2xl font-bold mb-4 text-violet-300">📝 {editingNoteId ? "Edit Note" : "New Note"}</h2>
+          <h2 className="text-2xl font-bold mb-4 text-violet-300">
+            📝 {editingNoteId ? "Edit Note" : "New Note"}
+          </h2>
+
           <input
             type="text"
             placeholder="Title"
@@ -86,6 +92,7 @@ const Home = () => {
             rows="5"
             className="w-full px-4 py-2 bg-black border border-violet-700 rounded-xl text-white resize-none focus:outline-none focus:ring-2 focus:ring-violet-500"
           />
+
           <div className="flex justify-between mt-4">
             <button
               onClick={handleAddOrUpdateNote}
@@ -93,6 +100,7 @@ const Home = () => {
             >
               {editingNoteId ? "✏️ Update" : "➕ Save"}
             </button>
+
             <button
               className="bg-purple-800 px-4 py-2 rounded-xl text-white hover:bg-purple-900"
               onClick={() => alert("AI analyzer coming soon!")}
@@ -100,9 +108,23 @@ const Home = () => {
               ⚙️ AI Analyze
             </button>
           </div>
+
+          {editingNoteId && (
+            <button
+              onClick={() => {
+                setEditingNoteId(null);
+                setTitle("");
+                setBody("");
+              }}
+              className="mt-3 text-sm text-gray-400 hover:text-red-400 underline"
+            >
+              ❌ Cancel Edit
+            </button>
+          )}
         </div>
 
         <h3 className="text-xl font-semibold text-purple-300 mb-4">🗂 Your Notes</h3>
+
         <div className="space-y-4">
           {notes.length === 0 ? (
             <p className="text-gray-500">No notes yet. Start writing!</p>
