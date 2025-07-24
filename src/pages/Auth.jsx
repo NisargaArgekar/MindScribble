@@ -55,7 +55,8 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 to-black text-white px-4">
-      <div className="bg-[#1c1c2c] p-8 rounded-2xl shadow-2xl w-full max-w-sm">
+      <div className="bg-black/30 border border-white/10 shadow-[0_0_30px_#8b5cf6] backdrop-blur-xl p-8 rounded-2xl w-full max-w-sm transition hover:scale-[1.01] duration-300">
+
         <h2 className="text-2xl font-bold mb-4 text-center text-purple-300">
           {view === "login" && "Login"}
           {view === "register" && "Create Account"}
@@ -72,7 +73,8 @@ const Auth = () => {
         <input
           type="email"
           placeholder="Email"
-          className="w-full mb-4 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full mb-4 px-4 py-3 bg-black/40 border border-white/10 rounded-lg placeholder-purple-300 text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+
           onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -80,7 +82,8 @@ const Auth = () => {
           <input
             type="password"
             placeholder="Password"
-            className="w-full mb-4 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+           className="w-full mb-4 px-4 py-3 bg-black/40 border border-white/10 rounded-lg placeholder-purple-300 text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+
             onChange={(e) => setPassword(e.target.value)}
           />
         )}
@@ -135,7 +138,8 @@ const Auth = () => {
           <>
             <button
               onClick={handleForgotPassword}
-              className="w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition"
+              className="w-full py-3 bg-gradient-to-r from-purple-700 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white rounded-xl font-semibold shadow-md hover:shadow-purple-700 transition duration-300"
+
             >
               Send Reset Email
             </button>
