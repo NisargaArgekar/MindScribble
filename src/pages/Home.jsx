@@ -69,12 +69,13 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-radial-gradient text-white font-modern">
       <Navbar />
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="bg-[#1e1b2e] p-6 rounded-2xl shadow-lg mb-6 border border-indigo-800">
-          <h2 className="text-2xl font-bold mb-4 text-violet-300">
+      <div className="max-w-3xl mx-auto px-4 py-10">
+        {/* New/Edit Note */}
+        <div className="bg-glass border border-white/10 shadow-purpleGlow p-6 rounded-2xl backdrop-blur-md mb-8">
+          <h2 className="text-2xl font-bold text-neonPurple mb-4">
             📝 {editingNoteId ? "Edit Note" : "New Note"}
           </h2>
 
@@ -83,26 +84,27 @@ const Home = () => {
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full mb-3 px-4 py-2 bg-black border border-violet-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="w-full mb-3 px-4 py-2 bg-lightBlack border border-purple-800 text-softPurple rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
+
           <textarea
             placeholder="Write your thoughts..."
             value={body}
             onChange={(e) => setBody(e.target.value)}
             rows="5"
-            className="w-full px-4 py-2 bg-black border border-violet-700 rounded-xl text-white resize-none focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="w-full px-4 py-2 bg-lightBlack border border-purple-800 text-softPurple rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
 
           <div className="flex justify-between mt-4">
             <button
               onClick={handleAddOrUpdateNote}
-              className="bg-gradient-to-tr from-violet-600 to-indigo-600 px-6 py-2 rounded-xl text-white font-semibold hover:opacity-90 transition"
+              className="bg-gradient-to-tr from-purple-600 to-purple-800 px-6 py-2 rounded-xl text-white font-semibold shadow-purpleGlow hover:scale-105 transition"
             >
               {editingNoteId ? "✏️ Update" : "➕ Save"}
             </button>
 
             <button
-              className="bg-purple-800 px-4 py-2 rounded-xl text-white hover:bg-purple-900"
+              className="bg-purple-900 px-6 py-2 rounded-xl text-white hover:bg-purple-700 shadow-md transition"
               onClick={() => alert("AI analyzer coming soon!")}
             >
               ⚙️ AI Analyze
@@ -116,14 +118,15 @@ const Home = () => {
                 setTitle("");
                 setBody("");
               }}
-              className="mt-3 text-sm text-gray-400 hover:text-red-400 underline"
+              className="mt-4 block text-sm text-red-400 hover:underline"
             >
               ❌ Cancel Edit
             </button>
           )}
         </div>
 
-        <h3 className="text-xl font-semibold text-purple-300 mb-4">🗂 Your Notes</h3>
+        {/* Notes List */}
+        <h3 className="text-xl font-semibold text-softPurple mb-4">📚 Your Notes</h3>
 
         <div className="space-y-4">
           {notes.length === 0 ? (
@@ -134,13 +137,11 @@ const Home = () => {
               .map((note) => (
                 <div
                   key={note.id}
-                  className={`bg-[#1e1b2e] p-4 rounded-xl border ${
-                    note.important ? "border-yellow-400" : "border-gray-800"
-                  }`}
+                  className="bg-glass border border-white/10 shadow-purpleGlow p-5 rounded-2xl backdrop-blur-md transition hover:scale-[1.01]"
                 >
                   <div className="flex justify-between items-center mb-2">
-                    <h4 className="text-lg font-bold text-white">{note.title}</h4>
-                    <div className="space-x-2">
+                    <h4 className="text-lg font-bold text-neonPurple">{note.title}</h4>
+                    <div className="space-x-2 text-lg">
                       <button onClick={() => handleEdit(note)} title="Edit">✏️</button>
                       <button onClick={() => handleDelete(note.id)} title="Delete">🗑️</button>
                       <button onClick={() => toggleImportant(note)} title="Mark Important">
@@ -148,7 +149,7 @@ const Home = () => {
                       </button>
                     </div>
                   </div>
-                  <p className="text-gray-300">{note.body}</p>
+                  <p className="text-softPurple whitespace-pre-wrap">{note.body}</p>
                 </div>
               ))
           )}
